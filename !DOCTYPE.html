@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ukraine War Exhibition - Crimea Day</title>
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-olive: #2a2e1a;
+            --black: #0a0a0a;
+            --dark-brown: #1a1410;
+            --light-gray: #c4c4c4;
+            --white: #ffffff;
+            --accent: #4a5f3a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-brown) 50%, var(--dark-olive) 100%);
+            color: var(--light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            animation: fadeInUp 1.2s ease;
+            font-style: italic;
+        }
+
+        /* ===== SECTION LAYOUT ===== */
+        .section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSection 1s ease forwards;
+        }
+
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .media-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .media-caption {
+            font-size: 1.3rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .media-container img:hover,
+        .media-container video:hover {
+            transform: scale(1.02);
+        }
+
+        .text-container {
+            flex: 1;
+        }
+
+        .text-container p {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--light-gray);
+        }
+
+        /* ===== CRIMEA DAY SECTION (CENTER) ===== */
+        .crimea-section {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 60px 40px;
+            background: rgba(42, 46, 26, 0.5);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            text-align: center;
+            animation: fadeInSection 1.5s ease;
+        }
+
+        .crimea-section h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .dress-code {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .color-item {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .color-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .color-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 3px solid var(--white);
+        }
+
+        .color-blue { background: #005BBB; }
+        .color-yellow { background: #FFD500; }
+        .color-white { background: #ffffff; }
+
+        .color-item h3 {
+            color: var(--white);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .color-item p {
+            font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        /* ===== GRAPH SECTION ===== */
+        .graph-section {
+            max-width: 1000px;
+            margin: 100px auto;
+            padding: 60px 40px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+        }
+
+        .graph-section h2 {
+            text-align: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .graph-row {
+            display: flex;
+            flex-direction: column;
+            margin: 30px 0;
+            gap: 8px;
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .graph-label {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+	.graph-bar-container {
+    		flex: 1;
+    		height: 18px;
+    		background: rgba(255, 255, 255, 0.1);
+    		border-radius: 10px;
+    		position: relative;
+    		overflow: hidden;
+    		border: 1px solid rgba(255,255,255,0.3); /* ajoute un contour léger */
+	}
+
+	.graph-bar {
+    		height: 100%;
+    		background: #00FFFF; /* couleur plus visible, bleu clair / cyan */
+    		border-radius: 10px;
+    		width: 50%;
+    		transition: width 2s ease;
+    		box-shadow: 0 0 5px rgba(0,255,255,0.7); /* léger glow pour ressortir */
+        }
+
+        .graph-number {
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .start-btn {
+            display: block;
+            margin: 40px auto 0;
+            padding: 15px 40px;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background: #5a7f4a;
+            transform: scale(1.05);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== FOOTER & DOCUMENTARY ===== */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        footer p {
+            margin-top: 30px;
+            color: var(--light-gray);
+            font-size: 0.95rem;
+        }
+
+        .doc-btn {
+            padding: 20px 50px;
+            background: #8b0000;
+            color: var(--white);
+            border: 2px solid #dc143c;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .doc-btn:hover {
+            background: #dc143c;
+            transform: scale(1.05);
+        }
+
+        /* ===== FULLSCREEN VIDEO ===== */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-video {
+            width: 100%;
+            height: 100%;
+        }
+
+        .close-btn {
+            display: none;
+        }
+
+        .fullscreen-overlay.active .close-btn {
+            display: none;
+        }
+
+        .esc-hint {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 5px;
+            animation: fadeInDown 0.5s ease;
+        }
+
+        /* ===== SCROLL NAVIGATION ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .scroll-indicator {
+            display: none;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInSection {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                flex-direction: column !important;
+                margin: 50px auto;
+            }
+
+            .crimea-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .graph-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .graph-bar-container {
+                width: 100%;
+            }
+
+            .graph-label {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="section0">
+        <h1>Ukraine War Exhibition</h1>
+        <p>With Ukraine, for peace</p>
+    </header>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        ↓ Space / ↑↓ Arrows ↓
+    </div>
+
+    <!-- SECTION 1: Media Left -->
+    <section class="section" id="section1">
+        <div class="media-container">
+            <div class="media-caption">Kyiv Under Siege</div>
+            <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=800" alt="War scene">
+        </div>
+        <div class="text-container">
+            <p>
+                The war started in February 2022 when Russia invaded Ukraine. Cities were destroyed 
+                and millions fled their homes. Kyiv was attacked but Ukrainian forces defended it bravely.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Media Right -->
+    <section class="section" id="section2">
+        <div class="media-container">
+            <div class="media-caption">Humanitarian Crisis</div>
+            <img src="https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=800" alt="Refugees">
+        </div>
+        <div class="text-container">
+            <p>
+                Over 8 million Ukrainians became refugees, fleeing to Poland, Romania, and Germany. 
+                Families were separated and many lost everything. The world showed solidarity through aid and support.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CRIMEA DAY (CENTER) -->
+    <section class="crimea-section" id="section3">
+        <h2>Crimea Day – Dress Code</h2>
+        <p style="margin-bottom: 30px; font-size: 1.1rem;">
+            On Crimea Day, we wear the colors of the Ukrainian flag to show our support 
+            and remember the people affected by the war. Each color has a special meaning.
+        </p>
+        
+        <div class="dress-code">
+            <div class="color-item">
+                <div class="color-box color-blue"></div>
+                <h3>Blue</h3>
+                <p>Represents the sky and peace. It reminds us of freedom and hope for a better future.</p>
+            </div>
+            
+            <div class="color-item">
+                <div class="color-box color-yellow"></div>
+                <h3>Yellow</h3>
+                <p>Symbolizes wheat fields and prosperity. It represents the strength and resilience of Ukraine.</p>
+            </div>
+            
+            <div class="color-item">
+                <div class="color-box color-white"></div>
+                <h3>White</h3>
+                <p>Stands for peace and unity. It's our message that war must end and harmony must return.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; font-size: 1.05rem; font-weight: 600;">
+            🕊️ Wear these colors to stand with Ukraine and promote peace worldwide 🕊️
+        </p>
+    </section>
+
+    <!-- SECTION 4: Media Left -->
+    <section class="section" id="section4">
+        <div class="media-container">
+            <div class="media-caption">Global Support</div>
+            <video autoplay muted loop>
+                <source src="https://cdn.coverr.co/videos/coverr-people-holding-hands-in-unity-7525/1080p.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="text-container">
+            <p>
+                Countries worldwide sent weapons, money, and humanitarian aid to Ukraine. 
+                Many organized protests and fundraisers. This global solidarity shows people care about peace everywhere.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE GRAPH -->
+    <section class="graph-section" id="section5">
+        <h2>Human Cost of War</h2>
+        
+        <div class="graph-row">
+            <div class="graph-header">
+                <div class="graph-label">Since war began</div>
+                <div class="graph-number" id="num1">~380,000</div>
+            </div>
+            <div class="graph-bar-container">
+                <div class="graph-bar" data-target="85" id="bar1"></div>
+            </div>
+        </div>
+
+        <div class="graph-row">
+            <div class="graph-header">
+                <div class="graph-label">Past year</div>
+                <div class="graph-number" id="num2">~130,000</div>
+            </div>
+            <div class="graph-bar-container">
+                <div class="graph-bar" data-target="70" id="bar2"></div>
+            </div>
+        </div>
+
+        <div class="graph-row">
+            <div class="graph-header">
+                <div class="graph-label">Past month</div>
+                <div class="graph-number" id="num3">~10,000</div>
+            </div>
+            <div class="graph-bar-container">
+                <div class="graph-bar" data-target="50" id="bar3"></div>
+            </div>
+        </div>
+
+        <div class="graph-row">
+            <div class="graph-header">
+                <div class="graph-label">Past week</div>
+                <div class="graph-number" id="num4">~2,500</div>
+            </div>
+            <div class="graph-bar-container">
+                <div class="graph-bar" data-target="30" id="bar4"></div>
+            </div>
+        </div>
+
+        <div class="graph-row">
+            <div class="graph-header">
+                <div class="graph-label">Since exhibition</div>
+                <div class="graph-number" id="num5">0</div>
+            </div>
+            <div class="graph-bar-container">
+                <div class="graph-bar" data-target="15" id="bar5"></div>
+            </div>
+        </div>
+
+        <button class="start-btn" id="startBtn">Start Exhibition</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="section6">
+        <button class="doc-btn" id="docBtn">Watch the Documentary</button>
+        <p>© 2025 Aronne Fanzini & Théo Valier</p>
+    </footer>
+
+    <!-- FULLSCREEN VIDEO OVERLAY -->
+    <div class="fullscreen-overlay" id="overlay">
+        <div class="esc-hint">Press ESC to quit</div>
+        <video class="fullscreen-video" id="docVideo" controls>
+            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-city-at-sunset-9021/1080p.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        // ===== SECTION NAVIGATION WITH SPACE =====
+        let currentSection = 0;
+        const sections = ['section0', 'section1', 'section2', 'section3', 'section4', 'section5', 'section6'];
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        
+        function scrollToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                const element = document.getElementById(sections[index]);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    currentSection = index;
+                }
+            }
+        }
+        
+        // Space/Arrow key navigation
+        document.addEventListener('keydown', (e) => {
+            // In fullscreen video mode
+            if (overlay.classList.contains('active')) {
+                if (e.code === 'Space' || e.code === 'Escape') {
+                    e.preventDefault();
+                    overlay.classList.remove('active');
+                    docVideo.pause();
+                    docVideo.currentTime = 0;
+                }
+                return;
+            }
+            
+            // Normal navigation
+            if (e.code === 'Space' || e.code === 'ArrowDown') {
+                e.preventDefault();
+                scrollToSection(currentSection + 1);
+            } else if (e.code === 'ArrowUp') {
+                e.preventDefault();
+                scrollToSection(currentSection - 1);
+            }
+        });
+        
+        // Click indicator to scroll (removed as indicator is hidden)
+        
+        // Track scroll position
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollPosition = window.scrollY + window.innerHeight / 2;
+                    
+                    sections.forEach((sectionId, index) => {
+                        const element = document.getElementById(sectionId);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            const elementTop = rect.top + window.scrollY;
+                            const elementBottom = elementTop + rect.height;
+                            
+                            if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+                                currentSection = index;
+                            }
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ===== GRAPH ANIMATION =====
+        const startBtn = document.getElementById('startBtn');
+        let exhibitionStartTime = null;
+        
+        // Base casualty estimates (in thousands)
+        const baseCasualties = {
+            total: 120000,      // Since war began
+            year: 35000,        // Past year
+            month: 8000,        // Past month
+            week: 1800,         // Past week
+            exhibition: 0       // Since exhibition started
+        };
+
+        // Calculate real-time casualties
+        function calculateCasualties() {
+            if (!exhibitionStartTime) return baseCasualties;
+            
+            const now = Date.now();
+            const elapsed = (now - exhibitionStartTime) / 1000; // seconds
+            const dailyRate = 240; // Estimated casualties per day
+            const secondRate = dailyRate / 86400; // Per second
+            
+            const exhibitionCasualties = Math.floor(elapsed * secondRate);
+            
+            return {
+                total: baseCasualties.total + exhibitionCasualties,
+                year: baseCasualties.year + exhibitionCasualties,
+                month: baseCasualties.month + exhibitionCasualties,
+                week: baseCasualties.week + exhibitionCasualties,
+                exhibition: exhibitionCasualties
+            };
+        }
+
+        // Animate counter (not used for static numbers)
+        function animateCounter(element, start, end, duration) {
+            // Counter animation removed for static displays
+        }
+
+        // Start exhibition
+        startBtn.addEventListener('click', () => {
+            exhibitionStartTime = Date.now();
+            startBtn.disabled = true;
+            startBtn.textContent = 'Exhibition Started';
+            
+            let exhibitionDeaths = 0;
+            
+            // Animate bars only
+            setTimeout(() => {
+                document.getElementById('bar1').style.width = '85%';
+            }, 200);
+            
+            setTimeout(() => {
+                document.getElementById('bar2').style.width = '70%';
+            }, 500);
+            
+            setTimeout(() => {
+                document.getElementById('bar3').style.width = '50%';
+            }, 800);
+            
+            setTimeout(() => {
+                document.getElementById('bar4').style.width = '30%';
+            }, 1100);
+            
+            setTimeout(() => {
+                document.getElementById('bar5').style.width = '15%';
+                document.getElementById('num5').textContent = '0';
+            }, 1400);
+            
+            // Function to increment exhibition deaths randomly between 8-15 seconds
+            function scheduleNextDeath() {
+                const randomDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000; // 8000-15000ms
+                setTimeout(() => {
+                    exhibitionDeaths++;
+                    document.getElementById('num5').textContent = exhibitionDeaths.toLocaleString();
+                    
+                    scheduleNextDeath(); // Schedule the next death
+                }, randomDelay);
+            }
+            
+            // Start the death counter after initial animation
+            setTimeout(() => {
+                scheduleNextDeath();
+            }, 2000);
+        });
+
+        // ===== FULLSCREEN DOCUMENTARY =====
+        const docBtn = document.getElementById('docBtn');
+        const overlay = document.getElementById('overlay');
+        const docVideo = document.getElementById('docVideo');
+
+        docBtn.addEventListener('click', () => {
+            overlay.classList.add('active');
+            docVideo.play();
+        });
+
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                docVideo.pause();
+                docVideo.currentTime = 0;
+            }
+        });
+        
+        // ===== SMOOTH SCROLL ANIMATIONS =====
+        const animatedSections = document.querySelectorAll('.section');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${index * 0.2}s`;
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        animatedSections.forEach(section => sectionObserver.observe(section));
+    </script>
+</body>
+</html>
