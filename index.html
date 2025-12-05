@@ -211,24 +211,31 @@
             font-size: 1rem;
         }
 
-		.graph-bar-container {
-    		flex: 1;
-    		height: 30px;
-    		background: rgba(255, 255, 255, 0.15);
-    		border-radius: 10px;
-    		position: relative;
-    		overflow: hidden;
-    		border: 2px solid rgba(255,255,255,0.4);
-		}
+        .graph-bar-container {
+            flex: 1;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
 
-		.graph-bar {
-    		height: 100%;
-    		background: linear-gradient(90deg, #ff4444, #ff6666);
-    		border-radius: 8px;
-    		width: 5%;
-    		transition: width 2s ease;
-    		box-shadow: 0 0 15px rgba(255,68,68,0.8), inset 0 2px 10px rgba(255,255,255,0.3);
-    		min-width: 5%;
+        .graph-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3333, #ff6666, #ff3333);
+            background-size: 200% 100%;
+            border-radius: 8px;
+            width: 0%;
+            transition: width 2s ease-out;
+            box-shadow: 0 0 20px rgba(255,68,68,0.9), inset 0 2px 15px rgba(255,255,255,0.3);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .graph-number {
@@ -344,18 +351,6 @@
 
         .scroll-indicator {
             display: none;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
         }
 
         /* ===== ANIMATIONS ===== */
@@ -518,7 +513,7 @@
                 <div class="graph-number" id="num1">~380,000</div>
             </div>
             <div class="graph-bar-container">
-                <div class="graph-bar" data-target="85" id="bar1"></div>
+                <div class="graph-bar" id="bar1"></div>
             </div>
         </div>
 
@@ -528,7 +523,7 @@
                 <div class="graph-number" id="num2">~130,000</div>
             </div>
             <div class="graph-bar-container">
-                <div class="graph-bar" data-target="70" id="bar2"></div>
+                <div class="graph-bar" id="bar2"></div>
             </div>
         </div>
 
@@ -538,7 +533,7 @@
                 <div class="graph-number" id="num3">~10,000</div>
             </div>
             <div class="graph-bar-container">
-                <div class="graph-bar" data-target="50" id="bar3"></div>
+                <div class="graph-bar" id="bar3"></div>
             </div>
         </div>
 
@@ -548,7 +543,7 @@
                 <div class="graph-number" id="num4">~2,500</div>
             </div>
             <div class="graph-bar-container">
-                <div class="graph-bar" data-target="30" id="bar4"></div>
+                <div class="graph-bar" id="bar4"></div>
             </div>
         </div>
 
@@ -558,7 +553,7 @@
                 <div class="graph-number" id="num5">0</div>
             </div>
             <div class="graph-bar-container">
-                <div class="graph-bar" data-target="15" id="bar5"></div>
+                <div class="graph-bar" id="bar5"></div>
             </div>
         </div>
 
@@ -618,8 +613,6 @@
             }
         });
         
-        // Click indicator to scroll (removed as indicator is hidden)
-        
         // Track scroll position
         let ticking = false;
         window.addEventListener('scroll', () => {
@@ -649,40 +642,6 @@
         // ===== GRAPH ANIMATION =====
         const startBtn = document.getElementById('startBtn');
         let exhibitionStartTime = null;
-        
-        // Base casualty estimates (in thousands)
-        const baseCasualties = {
-            total: 120000,      // Since war began
-            year: 35000,        // Past year
-            month: 8000,        // Past month
-            week: 1800,         // Past week
-            exhibition: 0       // Since exhibition started
-        };
-
-        // Calculate real-time casualties
-        function calculateCasualties() {
-            if (!exhibitionStartTime) return baseCasualties;
-            
-            const now = Date.now();
-            const elapsed = (now - exhibitionStartTime) / 1000; // seconds
-            const dailyRate = 240; // Estimated casualties per day
-            const secondRate = dailyRate / 86400; // Per second
-            
-            const exhibitionCasualties = Math.floor(elapsed * secondRate);
-            
-            return {
-                total: baseCasualties.total + exhibitionCasualties,
-                year: baseCasualties.year + exhibitionCasualties,
-                month: baseCasualties.month + exhibitionCasualties,
-                week: baseCasualties.week + exhibitionCasualties,
-                exhibition: exhibitionCasualties
-            };
-        }
-
-        // Animate counter (not used for static numbers)
-        function animateCounter(element, start, end, duration) {
-            // Counter animation removed for static displays
-        }
 
         // Start exhibition
         startBtn.addEventListener('click', () => {
@@ -692,36 +651,33 @@
             
             let exhibitionDeaths = 0;
             
-            // Animate bars only
-            setTimeout(() => {
-                document.getElementById('bar1').style.width = '85%';
-            }, 200);
+            // Animate bars with proper reset and timing
+            const animateBar = (barId, targetWidth, delay) => {
+                setTimeout(() => {
+                    const bar = document.getElementById(barId);
+                    bar.style.width = '0%';
+                    
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            bar.style.width = targetWidth + '%';
+                        });
+                    });
+                }, delay);
+            };
             
-            setTimeout(() => {
-                document.getElementById('bar2').style.width = '70%';
-            }, 500);
-            
-            setTimeout(() => {
-                document.getElementById('bar3').style.width = '50%';
-            }, 800);
-            
-            setTimeout(() => {
-                document.getElementById('bar4').style.width = '30%';
-            }, 1100);
-            
-            setTimeout(() => {
-                document.getElementById('bar5').style.width = '15%';
-                document.getElementById('num5').textContent = '0';
-            }, 1400);
+            animateBar('bar1', 85, 200);
+            animateBar('bar2', 70, 500);
+            animateBar('bar3', 50, 800);
+            animateBar('bar4', 30, 1100);
+            animateBar('bar5', 15, 1400);
             
             // Function to increment exhibition deaths randomly between 8-15 seconds
             function scheduleNextDeath() {
-                const randomDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000; // 8000-15000ms
+                const randomDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
                 setTimeout(() => {
                     exhibitionDeaths++;
                     document.getElementById('num5').textContent = exhibitionDeaths.toLocaleString();
-                    
-                    scheduleNextDeath(); // Schedule the next death
+                    scheduleNextDeath();
                 }, randomDelay);
             }
             
@@ -770,13 +726,4 @@
         animatedSections.forEach(section => sectionObserver.observe(section));
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
