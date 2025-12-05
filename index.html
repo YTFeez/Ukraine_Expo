@@ -119,7 +119,7 @@
 
         /* ===== CRIMEA DAY SECTION (CENTER) ===== */
         .crimea-section {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 100px auto;
             padding: 60px 40px;
             background: rgba(42, 46, 26, 0.5);
@@ -139,85 +139,149 @@
 
         .dress-code {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 30px;
-            margin: 40px 0;
+            margin: 50px 0;
+            flex-wrap: wrap;
         }
 
         .color-item {
-            flex: 1;
-            min-width: 200px;
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex: 0 1 300px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(74, 95, 58, 0.5);
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .color-item:hover {
             transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
         }
         
-        .item-column {
-            text-align: center;
-            margin-bottom: 15px;
-            width: 100%;
+        /* Section 1: Object with Image */
+        .item-object {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 25px;
+            border-bottom: 2px solid rgba(74, 95, 58, 0.3);
         }
         
-        .item-column h4 {
+        .item-object h4 {
             color: var(--accent);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .object-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            border: 3px solid var(--accent);
+        }
+        
+        .object-name {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 600;
+        }
+        
+        /* Section 2: Color Box */
+        .item-color {
+            padding: 25px;
+            border-bottom: 2px solid rgba(74, 95, 58, 0.3);
+        }
+        
+        .item-color h4 {
+            color: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
         .color-box {
             width: 100%;
-            height: 60px;
-            margin: 0 auto 10px;
-            border-radius: 8px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 10px;
             border: 3px solid var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-blue { 
+            background: linear-gradient(135deg, #005BBB, #0066cc);
+            color: var(--white);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-
-        .color-blue { background: #005BBB; }
-        .color-yellow { background: #FFD500; color: #000 !important; text-shadow: 2px 2px 4px rgba(255,255,255,0.5) !important; }
-        .color-white { background: #ffffff; color: #000 !important; text-shadow: none !important; }
-
-        .color-item h3 {
-            color: var(--white);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+        
+        .color-yellow { 
+            background: linear-gradient(135deg, #FFD500, #ffed4e);
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
-
-        .color-item p {
-            font-size: 0.95rem;
-            color: var(--light-gray);
-            line-height: 1.6;
+        
+        .color-white { 
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            color: #000;
+            border-color: #ccc;
+        }
+        
+        .color-text {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Section 3: Meaning Text */
+        .item-meaning {
+            padding: 25px;
+            background: rgba(10, 10, 10, 0.5);
+        }
+        
+        .item-meaning h4 {
+            color: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
         
         .reason-text {
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .slogan-text {
             font-style: italic;
             color: #FFD500;
+            font-size: 1.05rem;
+            line-height: 1.6;
         }
 
         /* ===== GRAPH SECTION ===== */
@@ -598,51 +662,60 @@
         </p>
         
         <div class="dress-code">
+            <!-- BLUE ITEM -->
             <div class="color-item">
-                <div class="item-column">
-                    <h4>Item</h4>
-                    <div class="color-box color-blue">Headband</div>
+                <div class="item-object">
+                    <h4>📦 Object</h4>
+                    <div class="object-image">🎽</div>
+                    <div class="object-name">Headband</div>
                 </div>
-                <div class="item-column">
-                    <h4>Color</h4>
-                    <h3>Blue 🔵</h3>
+                <div class="item-color">
+                    <h4>🎨 Color</h4>
+                    <div class="color-box color-blue">Blue</div>
+                    <div class="color-text">Sky & Freedom 🔵</div>
                 </div>
-                <div class="item-column">
-                    <h4>Meaning</h4>
-                    <p class="reason-text">Sky & Freedom</p>
-                    <p class="slogan-text">"Hope for peace"</p>
+                <div class="item-meaning">
+                    <h4>💭 Meaning</h4>
+                    <p class="reason-text">Represents Peace</p>
+                    <p class="slogan-text">"Hope for a better tomorrow"</p>
                 </div>
             </div>
             
+            <!-- YELLOW ITEM -->
             <div class="color-item">
-                <div class="item-column">
-                    <h4>Item</h4>
-                    <div class="color-box color-yellow">Bracelet</div>
+                <div class="item-object">
+                    <h4>📦 Object</h4>
+                    <div class="object-image">📿</div>
+                    <div class="object-name">Bracelet</div>
                 </div>
-                <div class="item-column">
-                    <h4>Color</h4>
-                    <h3>Yellow 🟡</h3>
+                <div class="item-color">
+                    <h4>🎨 Color</h4>
+                    <div class="color-box color-yellow">Yellow</div>
+                    <div class="color-text">Wheat Fields 🟡</div>
                 </div>
-                <div class="item-column">
-                    <h4>Meaning</h4>
-                    <p class="reason-text">Wheat Fields</p>
-                    <p class="slogan-text">"Strength & resilience"</p>
+                <div class="item-meaning">
+                    <h4>💭 Meaning</h4>
+                    <p class="reason-text">Strength & Prosperity</p>
+                    <p class="slogan-text">"Resilience of the people"</p>
                 </div>
             </div>
             
+            <!-- WHITE ITEM -->
             <div class="color-item">
-                <div class="item-column">
-                    <h4>Item</h4>
-                    <div class="color-box color-white">T-shirt</div>
+                <div class="item-object">
+                    <h4>📦 Object</h4>
+                    <div class="object-image">👕</div>
+                    <div class="object-name">T-Shirt</div>
                 </div>
-                <div class="item-column">
-                    <h4>Color</h4>
-                    <h3>White ⚪</h3>
+                <div class="item-color">
+                    <h4>🎨 Color</h4>
+                    <div class="color-box color-white">White</div>
+                    <div class="color-text">Unity & Peace ⚪</div>
                 </div>
-                <div class="item-column">
-                    <h4>Meaning</h4>
-                    <p class="reason-text">Peace & Unity</p>
-                    <p class="slogan-text">"End the war"</p>
+                <div class="item-meaning">
+                    <h4>💭 Meaning</h4>
+                    <p class="reason-text">End the Conflict</p>
+                    <p class="slogan-text">"Together for peace worldwide"</p>
                 </div>
             </div>
         </div>
@@ -806,51 +879,37 @@
         startBtn.addEventListener('click', () => {
             exhibitionStartTime = Date.now();
             startBtn.disabled = true;
-            startBtn.textContent = 'Exhibition Started';
+            startBtn.textContent = '✓ Exhibition Started';
+            startBtn.style.background = 'linear-gradient(135deg, #2a4a2a, #4a5f3a)';
             
             let exhibitionDeaths = 0;
             
-            // Animate bars using JavaScript animation
-            function animateBar(barId, targetWidth, delay) {
+            // Animate stat bars
+            function animateStatBar(barId, targetWidth, delay) {
                 setTimeout(() => {
                     const bar = document.getElementById(barId);
-                    let currentWidth = 0;
-                    const duration = 2000; // 2 seconds
-                    const startTime = Date.now();
-                    
-                    function updateWidth() {
-                        const elapsed = Date.now() - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        
-                        // Easing function for smooth animation
-                        const easeProgress = progress < 0.5 
-                            ? 2 * progress * progress 
-                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                        
-                        currentWidth = targetWidth * easeProgress;
-                        bar.style.width = currentWidth + '%';
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(updateWidth);
-                        }
-                    }
-                    
-                    requestAnimationFrame(updateWidth);
+                    bar.style.width = targetWidth + '%';
                 }, delay);
             }
             
-            animateBar('bar1', 85, 200);
-            animateBar('bar2', 70, 500);
-            animateBar('bar3', 50, 800);
-            animateBar('bar4', 30, 1100);
-            animateBar('bar5', 15, 1400);
+            animateStatBar('bar1', 100, 300);
+            animateStatBar('bar2', 75, 600);
+            animateStatBar('bar3', 50, 900);
+            animateStatBar('bar4', 35, 1200);
+            animateStatBar('bar5', 20, 1500);
             
             // Function to increment exhibition deaths randomly between 8-15 seconds
             function scheduleNextDeath() {
                 const randomDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
                 setTimeout(() => {
                     exhibitionDeaths++;
-                    document.getElementById('num5').textContent = exhibitionDeaths.toLocaleString();
+                    document.getElementById('num5').textContent = exhibitionDeaths + ' 💀';
+                    
+                    // Update live counter bar gradually
+                    const bar5 = document.getElementById('bar5');
+                    const currentWidth = Math.min((exhibitionDeaths / 50) * 100, 100);
+                    bar5.style.width = currentWidth + '%';
+                    
                     scheduleNextDeath();
                 }, randomDelay);
             }
