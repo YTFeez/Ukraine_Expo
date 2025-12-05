@@ -606,30 +606,87 @@
             pointer-events: none;
             z-index: 9998;
             opacity: 0;
-            filter: blur(1px);
-            font-size: 40px;
-            animation: bloodDrip 8s ease-in forwards;
+            filter: blur(0.5px);
+            font-size: 35px;
+            animation: bloodDrip 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
         
         @keyframes bloodDrip {
             0% {
-                opacity: 0.4;
-                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+                transform: translateY(0) rotate(var(--start-rotation, 0deg)) scale(0.8);
             }
-            20% {
-                opacity: 0.35;
+            5% {
+                opacity: 0.3;
+                transform: translateY(3vh) rotate(var(--start-rotation, 0deg)) scale(1);
+            }
+            30% {
+                opacity: 0.28;
+                transform: translateY(35vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.3)) scale(1);
             }
             50% {
-                opacity: 0.25;
-                transform: translateY(50vh) rotate(10deg);
+                opacity: 0.22;
+                transform: translateY(60vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.6)) scale(0.95);
             }
-            80% {
-                opacity: 0.1;
-                transform: translateY(80vh) rotate(15deg);
+            70% {
+                opacity: 0.12;
+                transform: translateY(82vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.85)) scale(0.9);
+            }
+            85% {
+                opacity: 0.03;
+                transform: translateY(95vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg))) scale(0.85);
             }
             100% {
                 opacity: 0;
-                transform: translateY(100vh) rotate(20deg);
+                transform: translateY(100vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg))) scale(0.8);
+            }
+        }
+        
+        /* Blood Trail Effect */
+        .blood-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                rgba(139, 0, 0, 0) 0%,
+                rgba(139, 0, 0, 0.4) 20%,
+                rgba(139, 0, 0, 0.3) 50%,
+                rgba(139, 0, 0, 0.15) 80%,
+                rgba(139, 0, 0, 0) 100%
+            );
+            backdrop-filter: blur(4px) brightness(0.8);
+            -webkit-backdrop-filter: blur(4px) brightness(0.8);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
+            animation: trailFade 4s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes trailFade {
+            0% {
+                opacity: 0;
+                height: 0;
+            }
+            10% {
+                opacity: 0.6;
+                height: 20vh;
+            }
+            30% {
+                opacity: 0.5;
+                height: 50vh;
+            }
+            60% {
+                opacity: 0.3;
+                height: 80vh;
+            }
+            80% {
+                opacity: 0.1;
+                height: 95vh;
+            }
+            100% {
+                opacity: 0;
+                height: 100vh;
             }
         }
 
@@ -1096,15 +1153,21 @@
             // Start from top with small random variation
             const y = -50 + Math.random() * 100;
             
+            // Random rotation: between -15 and +15 degrees for discrete movement
+            const startRotation = (Math.random() * 30) - 15;
+            const rotationDiff = (Math.random() * 10) - 5; // Small additional rotation during fall
+            
             splatter.style.left = x + 'px';
             splatter.style.top = y + 'px';
+            splatter.style.setProperty('--start-rotation', startRotation + 'deg');
+            splatter.style.setProperty('--rotation-diff', rotationDiff + 'deg');
             
             document.body.appendChild(splatter);
             
-            // Remove after animation (8 seconds)
+            // Remove after animation (6 seconds)
             setTimeout(() => {
                 splatter.remove();
-            }, 8000);
+            }, 6000);
         }
         
         // Create blood splatters every 5-12 seconds
