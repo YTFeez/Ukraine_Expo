@@ -596,25 +596,31 @@
             position: fixed;
             pointer-events: none;
             z-index: 9998;
-            opacity: 0.15;
+            opacity: 0;
             filter: blur(1px);
+            font-size: 40px;
+            animation: bloodDrip 8s ease-in forwards;
         }
         
-        .blood-splatter::before {
-            content: '🩸';
-            font-size: 60px;
-            position: absolute;
-            animation: fadeInBlood 0.5s ease-in;
-        }
-        
-        @keyframes fadeInBlood {
-            from {
-                opacity: 0;
-                transform: scale(0) rotate(0deg);
+        @keyframes bloodDrip {
+            0% {
+                opacity: 0.4;
+                transform: translateY(0) rotate(0deg);
             }
-            to {
-                opacity: 0.15;
-                transform: scale(1) rotate(var(--rotation, 45deg));
+            20% {
+                opacity: 0.35;
+            }
+            50% {
+                opacity: 0.25;
+                transform: translateY(50vh) rotate(10deg);
+            }
+            80% {
+                opacity: 0.1;
+                transform: translateY(80vh) rotate(15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(20deg);
             }
         }
 
@@ -1062,27 +1068,37 @@
         function createBloodSplatter() {
             const splatter = document.createElement('div');
             splatter.className = 'blood-splatter';
+            splatter.textContent = '🩸';
             
-            // Random position
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            const rotation = Math.random() * 360;
+            // Random position on the sides (left or right 15% of screen)
+            const side = Math.random() < 0.5 ? 'left' : 'right';
+            let x;
+            
+            if (side === 'left') {
+                // Left side: 0% to 15% of screen width
+                x = Math.random() * (window.innerWidth * 0.15);
+            } else {
+                // Right side: 85% to 100% of screen width
+                x = window.innerWidth * 0.85 + Math.random() * (window.innerWidth * 0.15);
+            }
+            
+            // Start from top with small random variation
+            const y = -50 + Math.random() * 100;
             
             splatter.style.left = x + 'px';
             splatter.style.top = y + 'px';
-            splatter.style.setProperty('--rotation', rotation + 'deg');
             
             document.body.appendChild(splatter);
             
-            // Remove after animation
+            // Remove after animation (8 seconds)
             setTimeout(() => {
                 splatter.remove();
             }, 8000);
         }
         
-        // Create blood splatters every 10-20 seconds
+        // Create blood splatters every 5-12 seconds
         function scheduleBloodSplatter() {
-            const delay = Math.random() * (20000 - 10000) + 10000;
+            const delay = Math.random() * (12000 - 5000) + 5000;
             setTimeout(() => {
                 createBloodSplatter();
                 scheduleBloodSplatter();
