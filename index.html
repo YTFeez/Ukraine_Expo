@@ -98,6 +98,14 @@
         .media-container video:hover {
             transform: scale(1.02);
         }
+        
+        .media-credit {
+            font-size: 0.75rem;
+            color: rgba(196, 196, 196, 0.6);
+            font-style: italic;
+            margin-top: 8px;
+            text-align: right;
+        }
 
         .text-container {
             flex: 1;
@@ -139,38 +147,77 @@
 
         .color-item {
             flex: 1;
-            min-width: 150px;
-            padding: 20px;
+            min-width: 200px;
+            padding: 25px;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .color-item:hover {
             transform: translateY(-10px);
         }
+        
+        .item-column {
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .item-column h4 {
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
         .color-box {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
+            width: 100%;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 8px;
             border: 3px solid var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .color-blue { background: #005BBB; }
-        .color-yellow { background: #FFD500; }
-        .color-white { background: #ffffff; }
+        .color-yellow { background: #FFD500; color: #000 !important; text-shadow: 2px 2px 4px rgba(255,255,255,0.5) !important; }
+        .color-white { background: #ffffff; color: #000 !important; text-shadow: none !important; }
 
         .color-item h3 {
             color: var(--white);
             margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .color-item p {
             font-size: 0.95rem;
             color: var(--light-gray);
+            line-height: 1.6;
+        }
+        
+        .reason-text {
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        
+        .slogan-text {
+            font-style: italic;
+            color: #FFD500;
         }
 
         /* ===== GRAPH SECTION ===== */
@@ -241,6 +288,10 @@
             color: var(--white);
             font-weight: bold;
             font-size: 1rem;
+        }
+        
+        .graph-number::after {
+            content: ' 💀';
         }
 
         .start-btn {
@@ -429,6 +480,7 @@
         <div class="media-container">
             <div class="media-caption">The beginning of the war</div>
             <img src="war_pic_1.jpg" alt="War scene">
+            <div class="media-credit">Photo credit: Associated Press</div>
         </div>
         <div class="text-container">
             <p>
@@ -443,6 +495,7 @@
         <div class="media-container">
             <div class="media-caption">deportation of the Ukrainian population</div>
             <img src="crisis_pic_1.jpg" alt="Refugees">
+            <div class="media-credit">Photo credit: Reuters</div>
         </div>
         <div class="text-container">
             <p>
@@ -463,21 +516,51 @@
         
         <div class="dress-code">
             <div class="color-item">
-                <div class="color-box color-blue"></div>
-                <h3>Blue T-shirt or Sweater</h3>
-                <p>Wear a blue top to represent the Ukrainian sky and freedom.</p>
+                <div class="item-column">
+                    <h4>Item</h4>
+                    <div class="color-box color-blue">Headband</div>
+                </div>
+                <div class="item-column">
+                    <h4>Color</h4>
+                    <h3>Blue 🔵</h3>
+                </div>
+                <div class="item-column">
+                    <h4>Meaning</h4>
+                    <p class="reason-text">Sky & Freedom</p>
+                    <p class="slogan-text">"Hope for peace"</p>
+                </div>
             </div>
             
             <div class="color-item">
-                <div class="color-box color-yellow"></div>
-                <h3>Yellow Accessories</h3>
-                <p>Add yellow items like a scarf, hat, or bracelet to symbolize Ukraine's wheat fields and hope.</p>
+                <div class="item-column">
+                    <h4>Item</h4>
+                    <div class="color-box color-yellow">Bracelet</div>
+                </div>
+                <div class="item-column">
+                    <h4>Color</h4>
+                    <h3>Yellow 🟡</h3>
+                </div>
+                <div class="item-column">
+                    <h4>Meaning</h4>
+                    <p class="reason-text">Wheat Fields</p>
+                    <p class="slogan-text">"Strength & resilience"</p>
+                </div>
             </div>
             
             <div class="color-item">
-                <div class="color-box color-white"></div>
-                <h3>White Shoes or Pants</h3>
-                <p>Complete your outfit with white pieces to show our wish for peace and unity.</p>
+                <div class="item-column">
+                    <h4>Item</h4>
+                    <div class="color-box color-white">T-shirt</div>
+                </div>
+                <div class="item-column">
+                    <h4>Color</h4>
+                    <h3>White ⚪</h3>
+                </div>
+                <div class="item-column">
+                    <h4>Meaning</h4>
+                    <p class="reason-text">Peace & Unity</p>
+                    <p class="slogan-text">"End the war"</p>
+                </div>
             </div>
         </div>
 
@@ -493,6 +576,7 @@
             <video autoplay muted loop>
                 <source src="https://cdn.coverr.co/videos/coverr-people-holding-hands-in-unity-7525/1080p.mp4" type="video/mp4">
             </video>
+            <div class="media-credit">Video: Coverr</div>
         </div>
         <div class="text-container">
             <p>
