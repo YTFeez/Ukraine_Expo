@@ -140,32 +140,39 @@
         .dress-code {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             margin: 50px 0;
             flex-wrap: wrap;
         }
 
-        .color-item {
-            flex: 0 1 300px;
+        .dress-item {
+            display: flex;
+            gap: 0;
             background: rgba(0, 0, 0, 0.6);
             border: 2px solid rgba(74, 95, 58, 0.5);
             border-radius: 12px;
-            padding: 0;
             overflow: hidden;
             transition: transform 0.3s ease, border-color 0.3s ease;
+            max-width: 900px;
+            width: 100%;
         }
 
-        .color-item:hover {
-            transform: translateY(-10px);
+        .dress-item:hover {
+            transform: translateY(-8px);
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
         }
         
-        /* Section 1: Object with Image */
+        /* Colonne 1: Objet avec photo */
         .item-object {
+            flex: 1;
             background: rgba(20, 20, 20, 0.8);
-            padding: 25px;
-            border-bottom: 2px solid rgba(74, 95, 58, 0.3);
+            padding: 30px 25px;
+            border-right: 2px solid rgba(74, 95, 58, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .item-object h4 {
@@ -173,35 +180,41 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
         
         .object-image {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 15px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 3rem;
             border: 3px solid var(--accent);
         }
         
         .object-name {
             color: var(--white);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        /* Section 2: Color Box */
+        /* Colonne 2: Couleur */
         .item-color {
-            padding: 25px;
-            border-bottom: 2px solid rgba(74, 95, 58, 0.3);
+            flex: 1;
+            padding: 30px 25px;
+            border-right: 2px solid rgba(74, 95, 58, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.4);
         }
         
         .item-color h4 {
@@ -209,12 +222,13 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
 
         .color-box {
             width: 100%;
+            max-width: 200px;
             height: 80px;
             margin: 0 auto 15px;
             border-radius: 10px;
@@ -223,7 +237,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
@@ -249,14 +263,19 @@
         
         .color-text {
             color: var(--white);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
         }
         
-        /* Section 3: Meaning Text */
+        /* Colonne 3: Signification */
         .item-meaning {
-            padding: 25px;
-            background: rgba(10, 10, 10, 0.5);
+            flex: 1.2;
+            padding: 30px 25px;
+            background: rgba(5, 5, 5, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .item-meaning h4 {
@@ -264,15 +283,15 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
         
         .reason-text {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--white);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -280,7 +299,7 @@
         .slogan-text {
             font-style: italic;
             color: #FFD500;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.6;
         }
 
@@ -764,7 +783,7 @@
         
         <div class="dress-code">
             <!-- BLUE ITEM -->
-            <div class="color-item">
+            <div class="dress-item">
                 <div class="item-object">
                     <h4>📦 Object</h4>
                     <div class="object-image">🎽</div>
@@ -783,7 +802,7 @@
             </div>
             
             <!-- YELLOW ITEM -->
-            <div class="color-item">
+            <div class="dress-item">
                 <div class="item-object">
                     <h4>📦 Object</h4>
                     <div class="object-image">📿</div>
@@ -802,7 +821,7 @@
             </div>
             
             <!-- WHITE ITEM -->
-            <div class="color-item">
+            <div class="dress-item">
                 <div class="item-object">
                     <h4>📦 Object</h4>
                     <div class="object-image">👕</div>
@@ -895,7 +914,12 @@
 
     <!-- FOOTER -->
     <footer id="section6">
-        <button class="doc-btn" id="docBtn">Watch the Documentary</button>
+        <h3>📽️ Documentary Film</h3>
+        <p class="footer-description">
+            Watch our exclusive documentary that goes deeper into the stories of those affected by the war. 
+            Hear firsthand accounts and witness the impact of the conflict on real lives.
+        </p>
+        <button class="doc-btn" id="docBtn">🎬 Watch the Documentary</button>
         <p>© 2025 Aronne Fanzini & Théo Valier</p>
     </footer>
 
@@ -1058,6 +1082,42 @@
         }, observerOptions);
 
         animatedSections.forEach(section => sectionObserver.observe(section));
+        
+        // ===== BLOOD SPLATTER SYSTEM =====
+        function createBloodSplatter() {
+            const splatter = document.createElement('div');
+            splatter.className = 'blood-splatter';
+            
+            // Random position
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const rotation = Math.random() * 360;
+            
+            splatter.style.left = x + 'px';
+            splatter.style.top = y + 'px';
+            splatter.style.setProperty('--rotation', rotation + 'deg');
+            
+            document.body.appendChild(splatter);
+            
+            // Remove after animation
+            setTimeout(() => {
+                splatter.remove();
+            }, 8000);
+        }
+        
+        // Create blood splatters every 10-20 seconds
+        function scheduleBloodSplatter() {
+            const delay = Math.random() * (20000 - 10000) + 10000;
+            setTimeout(() => {
+                createBloodSplatter();
+                scheduleBloodSplatter();
+            }, delay);
+        }
+        
+        // Start blood splatter system after page load
+        setTimeout(() => {
+            scheduleBloodSplatter();
+        }, 3000);
     </script>
 </body>
 </html>
