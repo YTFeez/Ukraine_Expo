@@ -226,10 +226,15 @@
             background: linear-gradient(90deg, #ff3333, #ff6666, #ff3333);
             background-size: 200% 100%;
             border-radius: 8px;
-            width: 0%;
-            transition: width 2s ease-out;
+            width: 0% !important;
+            transition: width 2.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 20px rgba(255,68,68,0.9), inset 0 2px 15px rgba(255,255,255,0.3);
             animation: shimmer 3s infinite;
+            will-change: width;
+        }
+        
+        .graph-bar.animate {
+            width: var(--target-width) !important;
         }
 
         @keyframes shimmer {
@@ -465,20 +470,20 @@
         <div class="dress-code">
             <div class="color-item">
                 <div class="color-box color-blue"></div>
-                <h3>Blue</h3>
-                <p>Represents the sky and peace. It reminds us of freedom and hope for a better future.</p>
+                <h3>Blue T-shirt or Sweater</h3>
+                <p>Wear a blue top to represent the Ukrainian sky and freedom.</p>
             </div>
             
             <div class="color-item">
                 <div class="color-box color-yellow"></div>
-                <h3>Yellow</h3>
-                <p>Symbolizes wheat fields and prosperity. It represents the strength and resilience of Ukraine.</p>
+                <h3>Yellow Accessories</h3>
+                <p>Add yellow items like a scarf, hat, or bracelet to symbolize Ukraine's wheat fields and hope.</p>
             </div>
             
             <div class="color-item">
                 <div class="color-box color-white"></div>
-                <h3>White</h3>
-                <p>Stands for peace and unity. It's our message that war must end and harmony must return.</p>
+                <h3>White Shoes or Pants</h3>
+                <p>Complete your outfit with white pieces to show our wish for peace and unity.</p>
             </div>
         </div>
 
@@ -651,25 +656,27 @@
             
             let exhibitionDeaths = 0;
             
-            // Animate bars with proper reset and timing
-            const animateBar = (barId, targetWidth, delay) => {
-                setTimeout(() => {
-                    const bar = document.getElementById(barId);
-                    bar.style.width = '0%';
-                    
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            bar.style.width = targetWidth + '%';
-                        });
-                    });
-                }, delay);
-            };
+            // Animate bars using CSS classes and custom properties
+            const bars = [
+                {id: 'bar1', width: 85, delay: 200},
+                {id: 'bar2', width: 70, delay: 500},
+                {id: 'bar3', width: 50, delay: 800},
+                {id: 'bar4', width: 30, delay: 1100},
+                {id: 'bar5', width: 15, delay: 1400}
+            ];
             
-            animateBar('bar1', 85, 200);
-            animateBar('bar2', 70, 500);
-            animateBar('bar3', 50, 800);
-            animateBar('bar4', 30, 1100);
-            animateBar('bar5', 15, 1400);
+            bars.forEach(bar => {
+                setTimeout(() => {
+                    const element = document.getElementById(bar.id);
+                    element.style.setProperty('--target-width', bar.width + '%');
+                    
+                    // Force reflow
+                    void element.offsetWidth;
+                    
+                    // Add class to trigger animation
+                    element.classList.add('animate');
+                }, bar.delay);
+            });
             
             // Function to increment exhibition deaths randomly between 8-15 seconds
             function scheduleNextDeath() {
