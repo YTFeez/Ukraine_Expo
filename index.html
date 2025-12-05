@@ -145,102 +145,95 @@
             flex-wrap: wrap;
         }
 
-        .dress-item {
-            display: flex;
-            gap: 0;
+        /* COLONNE 1: OBJET */
+        .column-object {
+            flex: 1;
+            min-width: 280px;
             background: rgba(0, 0, 0, 0.6);
             border: 2px solid rgba(74, 95, 58, 0.5);
             border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            max-width: 900px;
-            width: 100%;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
         }
 
-        .dress-item:hover {
+        .column-object:hover {
             transform: translateY(-8px);
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
         }
         
-        /* Colonne 1: Objet avec photo */
-        .item-object {
-            flex: 1;
-            background: rgba(20, 20, 20, 0.8);
-            padding: 30px 25px;
-            border-right: 2px solid rgba(74, 95, 58, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .item-object h4 {
+        .column-object h3 {
             color: var(--accent);
-            font-size: 0.75rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 700;
         }
         
         .object-image {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 4rem;
             border: 3px solid var(--accent);
         }
         
         .object-name {
             color: var(--white);
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 15px;
         }
         
-        /* Colonne 2: Couleur */
-        .item-color {
+        /* COLONNE 2: COULEUR */
+        .column-color {
             flex: 1;
-            padding: 30px 25px;
-            border-right: 2px solid rgba(74, 95, 58, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(10, 10, 10, 0.4);
+            min-width: 280px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(74, 95, 58, 0.5);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .column-color:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
         }
         
-        .item-color h4 {
+        .column-color h3 {
             color: var(--accent);
-            font-size: 0.75rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 700;
         }
 
         .color-box {
             width: 100%;
-            max-width: 200px;
-            height: 80px;
-            margin: 0 auto 15px;
-            border-radius: 10px;
+            max-width: 220px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 12px;
             border: 3px solid var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
         }
 
         .color-blue { 
@@ -263,43 +256,51 @@
         
         .color-text {
             color: var(--white);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-top: 10px;
         }
         
-        /* Colonne 3: Signification */
-        .item-meaning {
-            flex: 1.2;
-            padding: 30px 25px;
-            background: rgba(5, 5, 5, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* COLONNE 3: SIGNIFICATION */
+        .column-meaning {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(74, 95, 58, 0.5);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .column-meaning:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
         }
         
-        .item-meaning h4 {
+        .column-meaning h3 {
             color: var(--accent);
-            font-size: 0.75rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 700;
         }
         
         .reason-text {
             font-weight: 700;
             color: var(--white);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            line-height: 1.4;
         }
         
         .slogan-text {
             font-style: italic;
             color: #FFD500;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.6;
         }
 
@@ -714,6 +715,16 @@
             .crimea-section h2 {
                 font-size: 1.8rem;
             }
+            
+            .dress-code {
+                flex-direction: column;
+            }
+            
+            .column-object,
+            .column-color,
+            .column-meaning {
+                min-width: 100%;
+            }
 
             .graph-row {
                 flex-direction: column;
@@ -782,61 +793,25 @@
         </p>
         
         <div class="dress-code">
-            <!-- BLUE ITEM -->
-            <div class="dress-item">
-                <div class="item-object">
-                    <h4>📦 Object</h4>
-                    <div class="object-image">🎽</div>
-                    <div class="object-name">Headband</div>
-                </div>
-                <div class="item-color">
-                    <h4>🎨 Color</h4>
-                    <div class="color-box color-blue">Blue</div>
-                    <div class="color-text">Sky & Freedom 🔵</div>
-                </div>
-                <div class="item-meaning">
-                    <h4>💭 Meaning</h4>
-                    <p class="reason-text">Represents Peace</p>
-                    <p class="slogan-text">"Hope for a better tomorrow"</p>
-                </div>
+            <!-- COLONNE 1: OBJET -->
+            <div class="column-object">
+                <h3>📦 Object</h3>
+                <div class="object-image">🎽</div>
+                <div class="object-name">Headband</div>
             </div>
             
-            <!-- YELLOW ITEM -->
-            <div class="dress-item">
-                <div class="item-object">
-                    <h4>📦 Object</h4>
-                    <div class="object-image">📿</div>
-                    <div class="object-name">Bracelet</div>
-                </div>
-                <div class="item-color">
-                    <h4>🎨 Color</h4>
-                    <div class="color-box color-yellow">Yellow</div>
-                    <div class="color-text">Wheat Fields 🟡</div>
-                </div>
-                <div class="item-meaning">
-                    <h4>💭 Meaning</h4>
-                    <p class="reason-text">Strength & Prosperity</p>
-                    <p class="slogan-text">"Resilience of the people"</p>
-                </div>
+            <!-- COLONNE 2: COULEUR -->
+            <div class="column-color">
+                <h3>🎨 Color</h3>
+                <div class="color-box color-blue">Blue</div>
+                <div class="color-text">Sky & Freedom 🔵</div>
             </div>
             
-            <!-- WHITE ITEM -->
-            <div class="dress-item">
-                <div class="item-object">
-                    <h4>📦 Object</h4>
-                    <div class="object-image">👕</div>
-                    <div class="object-name">T-Shirt</div>
-                </div>
-                <div class="item-color">
-                    <h4>🎨 Color</h4>
-                    <div class="color-box color-white">White</div>
-                    <div class="color-text">Unity & Peace ⚪</div>
-                </div>
-                <div class="item-meaning">
-                    <h4>💭 Meaning</h4>
-                    <p class="reason-text">End the Conflict</p>
-                    <p class="slogan-text">"Together for peace worldwide"</p>
-                </div>
+            <!-- COLONNE 3: SIGNIFICATION -->
+            <div class="column-meaning">
+                <h3>💭 Meaning</h3>
+                <p class="reason-text">Represents Peace</p>
+                <p class="slogan-text">"Hope for a better tomorrow"</p>
             </div>
         </div>
 
