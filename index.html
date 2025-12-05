@@ -226,15 +226,9 @@
             background: linear-gradient(90deg, #ff3333, #ff6666, #ff3333);
             background-size: 200% 100%;
             border-radius: 8px;
-            width: 0% !important;
-            transition: width 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
             box-shadow: 0 0 20px rgba(255,68,68,0.9), inset 0 2px 15px rgba(255,255,255,0.3);
             animation: shimmer 3s infinite;
-            will-change: width;
-        }
-        
-        .graph-bar.animate {
-            width: var(--target-width) !important;
         }
 
         @keyframes shimmer {
@@ -656,27 +650,40 @@
             
             let exhibitionDeaths = 0;
             
-            // Animate bars using CSS classes and custom properties
-            const bars = [
-                {id: 'bar1', width: 85, delay: 200},
-                {id: 'bar2', width: 70, delay: 500},
-                {id: 'bar3', width: 50, delay: 800},
-                {id: 'bar4', width: 30, delay: 1100},
-                {id: 'bar5', width: 15, delay: 1400}
-            ];
-            
-            bars.forEach(bar => {
+            // Animate bars using JavaScript animation
+            function animateBar(barId, targetWidth, delay) {
                 setTimeout(() => {
-                    const element = document.getElementById(bar.id);
-                    element.style.setProperty('--target-width', bar.width + '%');
+                    const bar = document.getElementById(barId);
+                    let currentWidth = 0;
+                    const duration = 2000; // 2 seconds
+                    const startTime = Date.now();
                     
-                    // Force reflow
-                    void element.offsetWidth;
+                    function updateWidth() {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Easing function for smooth animation
+                        const easeProgress = progress < 0.5 
+                            ? 2 * progress * progress 
+                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                        
+                        currentWidth = targetWidth * easeProgress;
+                        bar.style.width = currentWidth + '%';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateWidth);
+                        }
+                    }
                     
-                    // Add class to trigger animation
-                    element.classList.add('animate');
-                }, bar.delay);
-            });
+                    requestAnimationFrame(updateWidth);
+                }, delay);
+            }
+            
+            animateBar('bar1', 85, 200);
+            animateBar('bar2', 70, 500);
+            animateBar('bar3', 50, 800);
+            animateBar('bar4', 30, 1100);
+            animateBar('bar5', 15, 1400);
             
             // Function to increment exhibition deaths randomly between 8-15 seconds
             function scheduleNextDeath() {
