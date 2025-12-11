@@ -1,563 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ukraine War Exhibition - Crimea Day</title>
-    <style>
-        /* ===== VARIABLES & RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --dark-olive: #2a2e1a;
-            --black: #0a0a0a;
-            --dark-brown: #1a1410;
-            --light-gray: #c4c4c4;
-            --white: #ffffff;
-            --accent: #4a5f3a;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, var(--black) 0%, var(--dark-brown) 50%, var(--dark-olive) 100%);
-            color: var(--light-gray);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-bottom: 2px solid var(--accent);
-        }
-
-        header h1 {
-            font-size: 3rem;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            animation: fadeInDown 1s ease;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: var(--light-gray);
-            animation: fadeInUp 1.2s ease;
-            font-style: italic;
-        }
-
-        /* ===== SECTION LAYOUT ===== */
-        .section {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInSection 1s ease forwards;
-        }
-
-        .section:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .media-container {
-            flex: 1;
-            position: relative;
-        }
-
-        .media-caption {
-            font-size: 1.3rem;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .media-container img,
-        .media-container video {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border: 3px solid var(--accent);
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .media-container img:hover,
-        .media-container video:hover {
-            transform: scale(1.02);
-        }
-        
-        .media-credit {
-            font-size: 0.75rem;
-            color: rgba(196, 196, 196, 0.6);
-            font-style: italic;
-            margin-top: 8px;
-            text-align: right;
-        }
-
-        .text-container {
-            flex: 1;
-        }
-
-        .text-container p {
-            font-size: 1.25rem;
-            line-height: 1.9;
-            color: var(--light-gray);
-        }
-
-        /* ===== CRIMEA DAY SECTION (CENTER) ===== */
-        .crimea-section {
-            max-width: 1100px;
-            margin: 100px auto;
-            padding: 60px 40px;
-            background: rgba(42, 46, 26, 0.5);
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            text-align: center;
-            animation: fadeInSection 1.5s ease;
-        }
-
-        .crimea-section h2 {
-            font-size: 2.5rem;
-            color: var(--white);
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-        }
-
-        .dress-code {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 50px 0;
-            flex-wrap: wrap;
-        }
-
-        /* COLONNE 1: OBJET */
-        .column-object {
-            flex: 1;
-            min-width: 280px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(74, 95, 58, 0.5);
-            border-radius: 12px;
-            padding: 40px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .column-object:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
-        }
-        
-        .column-object h3 {
-            color: var(--accent);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        
-        .object-image {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid var(--accent);
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .object-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .object-name {
-            color: var(--white);
-            font-size: 1.4rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 15px;
-        }
-        
-        /* COLONNE 2: COULEUR */
-        .column-color {
-            flex: 1;
-            min-width: 280px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(74, 95, 58, 0.5);
-            border-radius: 12px;
-            padding: 40px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .column-color:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
-        }
-        
-        .column-color h3 {
-            color: var(--accent);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .color-box {
-            width: 100%;
-            max-width: 220px;
-            height: 100px;
-            margin: 0 auto 20px;
-            border-radius: 12px;
-            border: 3px solid var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.6rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .color-blue { 
-            background: linear-gradient(135deg, #005BBB, #0066cc);
-            color: var(--white);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        
-        .color-yellow { 
-            background: linear-gradient(135deg, #FFD500, #ffed4e);
-            color: #000;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-        }
-        
-        .color-white { 
-            background: linear-gradient(135deg, #ffffff, #f0f0f0);
-            color: #000;
-            border-color: #ccc;
-        }
-        
-        .color-text {
-            color: var(--white);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        
-        /* COLONNE 3: SIGNIFICATION */
-        .column-meaning {
-            flex: 1;
-            min-width: 280px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(74, 95, 58, 0.5);
-            border-radius: 12px;
-            padding: 40px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .column-meaning:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(74, 95, 58, 0.4);
-        }
-        
-        .column-meaning h3 {
-            color: var(--accent);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        
-        .reason-text {
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.4;
-        }
-        
-        .slogan-text {
-            font-style: italic;
-            color: #FFD500;
-            font-size: 1.15rem;
-            line-height: 1.6;
-        }
-
-        /* ===== GRAPH SECTION ===== */
-        .graph-section {
-            max-width: 1100px;
-            margin: 100px auto;
-            padding: 70px 50px;
-            background: linear-gradient(135deg, rgba(42, 46, 26, 0.6), rgba(26, 20, 16, 0.8));
-            border: 3px solid var(--accent);
-            border-radius: 16px;
-            box-shadow: 0 10px 50px rgba(74, 95, 58, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .graph-section::before {
-            content: '';
-            position: absolute;
+/* ===== PARTICLES BACKGROUND ===== */
+        .particles {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            animation: scanline 3s linear infinite;
+            background: rgba(196, 196, 196, 0.6);
+            border-radius: 50%;
+            animation: float linear infinite;
+            box-shadow: 0 0 10px rgba(196, 196, 196, 0.4);
         }
         
-        @keyframes scanline {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(var(--drift, 0px));
+                opacity: 0;
+            }
         }
 
-        .graph-section h2 {
-            text-align: center;
-            color: var(--white);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(196, 196, 196, 0.3);
-        }
-        
-        .graph-subtitle {
-            text-align: center;
-            color: var(--light-gray);
-            font-size: 1rem;
-            margin-bottom: 50px;
-            font-style: italic;
-        }
-
-        .graph-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .stat-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(74, 95, 58, 0.4);
-            border-radius: 12px;
-            padding: 25px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(74, 95, 58, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 5px 25px rgba(74, 95, 58, 0.4);
-        }
-        
-        .stat-card:hover::before {
-            left: 100%;
-        }
-        
-        .stat-label {
-            color: var(--light-gray);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .stat-number {
-            color: #c4c4c4;
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(196, 196, 196, 0.3);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .stat-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-        
-        .stat-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), #5a7f4a);
-            width: 0%;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(74, 95, 58, 0.6);
-            transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .live-counter {
-            background: rgba(42, 46, 26, 0.4);
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 30px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(74, 95, 58, 0.3);
-        }
-        
-        .live-label {
-            color: var(--light-gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-        
-        .live-number {
-            color: var(--white);
-            font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 0 0 20px rgba(196, 196, 196, 0.5);
-            font-family: 'Courier New', monospace;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .start-btn {
-            display: block;
-            margin: 40px auto 0;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, var(--accent), #5a7f4a);
-            color: var(--white);
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(74, 95, 58, 0.4);
-        }
-
-        .start-btn:hover {
-            background: linear-gradient(135deg, #5a7f4a, #6a8f5a);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(74, 95, 58, 0.6);
-        }
-
-        .start-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* ===== FOOTER & DOCUMENTARY ===== */
-        footer {
-            text-align: center;
-            padding: 80px 20px 50px;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.9) 0%, rgba(0, 0, 0, 0.98) 100%);
-            position: relative;
-            border-top: 3px solid var(--accent);
-            box-shadow: 0 -10px 50px rgba(74, 95, 58, 0.3);
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
+        /* ===== INTRO OVERLAY ===== */
+        .intro-overlay {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(74, 95, 58, 0.1) 0%, transparent 70%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        
+        .intro-overlay.hidden {
+            opacity: 0;
             pointer-events: none;
         }
         
-        footer h3 {
+        .intro-logo {
+            font-size: 4rem;
             color: var(--white);
-            font-size: 1.8rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(196, 196, 196, 0.3);
-        }
-        
-        footer .footer-description {
-            color: var(--light-gray);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        footer p {
-            margin-top: 40px;
-            color: var(--light-gray);
-            font-size: 0.95rem;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            animation: glitchText 3s ease-in-out infinite, scaleIn 1.5s ease;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.5),
+                0 0 40px rgba(74, 95, 58, 0.4),
+                0 0 60px rgba(74, 95, 58, 0.3);
             position: relative;
-            z-index: 1;
         }
         
-        footer p::before {
-            content: '✦';
-            margin: 0 10px;
-            color: var(--accent);
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
         
-        footer p::after {
-            content: '✦';
-            margin: 0 10px;
-            color: var(--accent);
+        @keyframes glitchText {
+            0%, 90%, 100% {
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 0.5),
+                    0 0 40px rgba(74, 95, 58, 0.4),
+                    0 0 60px rgba(74, 95, 58, 0.3);
+            }
+            92% {
+                text-shadow: 
+                    -2px 0 20px rgba(255, 0, 0, 0.7),
+                    2px 0 20px rgba(0, 255, 255, 0.7),
+                    0 0 40px rgba(74, 95, 58, 0.4);
+            }
+            94% {
+                text-shadow: 
+                    2px 0 20px rgba(255, 0, 0, 0.7),
+                    -2px 0 20px rgba(0, 255, 255, 0.7),
+                    0 0 40px rgba(74, 95, 58, 0.4);
+            }
         }
-
-        .doc-btn {
-            padding: 25px 60px;
+        
+        .intro-tagline {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            letter-spacing: 3px;
+            font-style: italic;
+            animation: fadeInUp 2s ease 0.5s backwards;
+            margin-bottom: 50px;
+        }
+        
+        .enter-btn {
+            padding: 20px 60px;
             background: linear-gradient(135deg, var(--accent), #5a7f4a);
             color: var(--white);
             border: 3px solid var(--accent);
@@ -569,12 +130,12 @@
             letter-spacing: 2px;
             transition: all 0.4s ease;
             box-shadow: 0 10px 40px rgba(74, 95, 58, 0.4);
+            animation: pulse 2s ease-in-out infinite, fadeInUp 2s ease 1s backwards;
             position: relative;
             overflow: hidden;
-            z-index: 1;
         }
         
-        .doc-btn::before {
+        .enter-btn::before {
             content: '';
             position: absolute;
             top: 50%;
@@ -582,607 +143,46 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
-            z-index: -1;
         }
         
-        .doc-btn:hover::before {
+        .enter-btn:hover::before {
             width: 400px;
             height: 400px;
         }
-
-        .doc-btn:hover {
-            background: linear-gradient(135deg, #5a7f4a, #6a8f5a);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(74, 95, 58, 0.6);
-            border-color: #6a8f5a;
-        }
         
-        /* Blood Splatter Effect */
-        .blood-splatter {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0;
-            filter: blur(0.5px);
-            font-size: 35px;
-            animation: bloodDrip 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-        
-        @keyframes bloodDrip {
-            0% {
-                opacity: 0;
-                transform: translateY(0) rotate(var(--start-rotation, 0deg)) scale(0.8);
-            }
-            5% {
-                opacity: 0.3;
-                transform: translateY(3vh) rotate(var(--start-rotation, 0deg)) scale(1);
-            }
-            30% {
-                opacity: 0.28;
-                transform: translateY(35vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.3)) scale(1);
-            }
-            50% {
-                opacity: 0.22;
-                transform: translateY(60vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.6)) scale(0.95);
-            }
-            70% {
-                opacity: 0.12;
-                transform: translateY(82vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg) * 0.85)) scale(0.9);
-            }
-            85% {
-                opacity: 0.03;
-                transform: translateY(95vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg))) scale(0.85);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(calc(var(--start-rotation, 0deg) + var(--rotation-diff, 5deg))) scale(0.8);
-            }
-        }
-        
-        /* Blood Trail Effect */
-        .blood-trail {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9997;
-            width: 2px;
-            background: linear-gradient(to bottom, 
-                rgba(139, 0, 0, 0) 0%,
-                rgba(139, 0, 0, 0.4) 20%,
-                rgba(139, 0, 0, 0.3) 50%,
-                rgba(139, 0, 0, 0.15) 80%,
-                rgba(139, 0, 0, 0) 100%
-            );
-            backdrop-filter: blur(4px) brightness(0.8);
-            -webkit-backdrop-filter: blur(4px) brightness(0.8);
-            border-radius: 2px;
-            box-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
-            animation: trailFade 4s ease-out forwards;
-            opacity: 0;
-        }
-        
-        @keyframes trailFade {
-            0% {
-                opacity: 0;
-                height: 0;
-            }
-            10% {
-                opacity: 0.6;
-                height: 20vh;
-            }
-            30% {
-                opacity: 0.5;
-                height: 50vh;
-            }
-            60% {
-                opacity: 0.3;
-                height: 80vh;
-            }
-            80% {
-                opacity: 0.1;
-                height: 95vh;
-            }
-            100% {
-                opacity: 0;
-                height: 100vh;
-            }
+        .enter-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 60px rgba(74, 95, 58, 0.8);
         }
 
-        /* ===== FULLSCREEN VIDEO ===== */
-        .fullscreen-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            z-index: 2;
         }
 
-        .fullscreen-overlay.active {
-            display: flex;
+        header h1 {
+            font-size: 3rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(74, 95, 58, 0.2);
         }
 
-        .fullscreen-video {
-            width: 100%;
-            height: 100%;
+        header p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            animation: fadeInUp 1.2s ease;
+            font-style: italic;
         }
-
-        .close-btn {
-            display: none;
-        }
-
-        .fullscreen-overlay.active .close-btn {
-            display: none;
-        }
-
-        .esc-hint {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 25px;
-            font-size: 1rem;
-            border-radius: 5px;
-            animation: fadeInDown 0.5s ease;
-        }
-
-        /* ===== SCROLL NAVIGATION ===== */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .scroll-indicator {
-            display: none;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInSection {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .section {
-                flex-direction: column !important;
-                margin: 50px auto;
-            }
-
-            .crimea-section h2 {
-                font-size: 1.8rem;
-            }
-            
-            .dress-code {
-                flex-direction: column;
-            }
-            
-            .column-object,
-            .column-color,
-            .column-meaning {
-                min-width: 100%;
-            }
-
-            .graph-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .graph-bar-container {
-                width: 100%;
-            }
-
-            .graph-label {
-                min-width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- HEADER -->
-    <header id="section0">
-        <h1>Ukraine War Exhibition</h1>
-        <p>With Ukraine, for peace</p>
-    </header>
-
-    <!-- SCROLL INDICATOR -->
-    <div class="scroll-indicator" id="scrollIndicator">
-        ↓ Space / ↑↓ Arrows ↓
-    </div>
-
-    <!-- SECTION 1: Media Left -->
-    <section class="section" id="section1">
-        <div class="media-container">
-            <div class="media-caption">The beginning of the war</div>
-            <img src="war_pic_1.jpg" alt="War scene">
-            <div class="media-credit">Photo credit: Associated Press</div>
-        </div>
-        <div class="text-container">
-            <p>
-                The war started in February 2022 when Russia invaded Ukraine. Cities were destroyed 
-                and millions fled their homes. Kyiv was attacked but Ukrainian forces defended it bravely.
-            </p>
-        </div>
-    </section>
-
-    <!-- SECTION 2: Media Right -->
-    <section class="section" id="section2">
-        <div class="media-container">
-            <div class="media-caption">deportation of the Ukrainian population</div>
-            <img src="crisis_pic_1.jpg" alt="Refugees">
-            <div class="media-credit">Photo credit: Reuters</div>
-        </div>
-        <div class="text-container">
-            <p>
-                Over 8 million Ukrainians became refugees, moved to Poland, Romania, Germany, France...
-                Families were separated and many lost everything. The world showed solidarity through aid and support.
-				In this picture, the little girl has lost her family.
-            </p>
-        </div>
-    </section>
-
-    <!-- SECTION 3: CRIMEA DAY (CENTER) -->
-    <section class="crimea-section" id="section3">
-        <h2>Crimea Day – Dress Code</h2>
-        <p style="margin-bottom: 30px; font-size: 1.1rem;">
-            On Crimea Day, we wear the colors of the Ukrainian flag to show our support 
-            and remember the people affected by the war. Each color has a special meaning.
-        </p>
-        
-        <div class="dress-code">
-            <!-- COLONNE 1: OBJET -->
-            <div class="column-object">
-                <h3>📦 Object</h3>
-                <div class="object-image">
-                    <img src="headband.jpg" alt="Headband">
-                </div>
-                <div class="object-name">Headband</div>
-            </div>
-            
-            <!-- COLONNE 2: COULEUR -->
-            <div class="column-color">
-                <h3>🎨 Color</h3>
-                <div class="color-box color-blue">Blue</div>
-                <div class="color-text">Sky & Freedom 🔵</div>
-            </div>
-            
-            <!-- COLONNE 3: SIGNIFICATION -->
-            <div class="column-meaning">
-                <h3>💭 Meaning</h3>
-                <p class="reason-text">Represents Peace</p>
-                <p class="slogan-text">"Hope for a better tomorrow"</p>
-            </div>
-        </div>
-
-        <p style="margin-top: 30px; font-size: 1.05rem; font-weight: 600;">
-            🕊️ Wear these colors to stand with Ukraine and promote peace worldwide 🕊️
-        </p>
-    </section>
-
-    <!-- SECTION 4: Media Left -->
-    <section class="section" id="section4">
-        <div class="media-container">
-            <div class="media-caption">Global Support</div>
-            <video autoplay muted loop>
-                <source src="https://cdn.coverr.co/videos/coverr-people-holding-hands-in-unity-7525/1080p.mp4" type="video/mp4">
-            </video>
-            <div class="media-credit">Video: Coverr</div>
-        </div>
-        <div class="text-container">
-            <p>
-                Countries worldwide sent weapons, money, and humanitarian aid to Ukraine. 
-                Many organized protests and fundraisers. This global solidarity shows people care about peace everywhere.
-            </p>
-        </div>
-    </section>
-
-    <!-- SECTION 5: INTERACTIVE GRAPH -->
-    <section class="graph-section" id="section5">
-        <h2>Human Cost of War</h2>
-        <p class="graph-subtitle">Estimated casualties since the beginning of the conflict</p>
-        
-        <div class="graph-grid">
-            <div class="stat-card">
-                <div class="stat-label">Since War Began</div>
-                <div class="stat-number" id="num1">~380,000 💀</div>
-                <div class="stat-bar">
-                    <div class="stat-bar-fill" id="bar1"></div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-label">Past Year</div>
-                <div class="stat-number" id="num2">~130,000 💀</div>
-                <div class="stat-bar">
-                    <div class="stat-bar-fill" id="bar2"></div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-label">Past Month</div>
-                <div class="stat-number" id="num3">~10,000 💀</div>
-                <div class="stat-bar">
-                    <div class="stat-bar-fill" id="bar3"></div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-label">Past Week</div>
-                <div class="stat-number" id="num4">~2,500 💀</div>
-                <div class="stat-bar">
-                    <div class="stat-bar-fill" id="bar4"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="live-counter">
-            <div class="live-label">⚠️ Live Counter - Since Exhibition Started ⚠️</div>
-            <div class="live-number" id="num5">0 💀</div>
-            <div class="stat-bar" style="max-width: 400px; margin: 20px auto 0;">
-                <div class="stat-bar-fill" id="bar5"></div>
-            </div>
-        </div>
-
-        <button class="start-btn" id="startBtn">⚡ Start Exhibition Counter ⚡</button>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="section6">
-        <h3>📽️ Documentary Film</h3>
-        <p class="footer-description">
-            Watch our exclusive documentary that goes deeper into the stories of those affected by the war. 
-            Hear firsthand accounts and witness the impact of the conflict on real lives.
-        </p>
-        <button class="doc-btn" id="docBtn">🎬 Watch the Documentary</button>
-        <p>© 2025 Aronne Fanzini & Théo Valier</p>
-    </footer>
-
-    <!-- FULLSCREEN VIDEO OVERLAY -->
-    <div class="fullscreen-overlay" id="overlay">
-        <div class="esc-hint">Press ESC to quit</div>
-        <video class="fullscreen-video" id="docVideo" controls>
-            <source src="Final Video.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <script>
-        // ===== SECTION NAVIGATION WITH SPACE =====
-        let currentSection = 0;
-        const sections = ['section0', 'section1', 'section2', 'section3', 'section4', 'section5', 'section6'];
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        
-        function scrollToSection(index) {
-            if (index >= 0 && index < sections.length) {
-                const element = document.getElementById(sections[index]);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    currentSection = index;
-                }
-            }
-        }
-        
-        // Space/Arrow key navigation
-        document.addEventListener('keydown', (e) => {
-            // In fullscreen video mode
-            if (overlay.classList.contains('active')) {
-                if (e.code === 'Space' || e.code === 'Escape') {
-                    e.preventDefault();
-                    overlay.classList.remove('active');
-                    docVideo.pause();
-                    docVideo.currentTime = 0;
-                }
-                return;
-            }
-            
-            // Normal navigation
-            if (e.code === 'Space' || e.code === 'ArrowDown') {
-                e.preventDefault();
-                scrollToSection(currentSection + 1);
-            } else if (e.code === 'ArrowUp') {
-                e.preventDefault();
-                scrollToSection(currentSection - 1);
-            }
-        });
-        
-        // Track scroll position
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrollPosition = window.scrollY + window.innerHeight / 2;
-                    
-                    sections.forEach((sectionId, index) => {
-                        const element = document.getElementById(sectionId);
-                        if (element) {
-                            const rect = element.getBoundingClientRect();
-                            const elementTop = rect.top + window.scrollY;
-                            const elementBottom = elementTop + rect.height;
-                            
-                            if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
-                                currentSection = index;
-                            }
-                        }
-                    });
-                    
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // ===== GRAPH ANIMATION =====
-        const startBtn = document.getElementById('startBtn');
-        let exhibitionStartTime = null;
-
-        // Start exhibition
-        startBtn.addEventListener('click', () => {
-            exhibitionStartTime = Date.now();
-            startBtn.disabled = true;
-            startBtn.textContent = '✓ Exhibition Started';
-            startBtn.style.background = 'linear-gradient(135deg, #2a4a2a, #4a5f3a)';
-            
-            let exhibitionDeaths = 0;
-            
-            // Animate stat bars
-            function animateStatBar(barId, targetWidth, delay) {
-                setTimeout(() => {
-                    const bar = document.getElementById(barId);
-                    bar.style.width = targetWidth + '%';
-                }, delay);
-            }
-            
-            animateStatBar('bar1', 100, 300);
-            animateStatBar('bar2', 75, 600);
-            animateStatBar('bar3', 50, 900);
-            animateStatBar('bar4', 35, 1200);
-            animateStatBar('bar5', 20, 1500);
-            
-            // Function to increment exhibition deaths randomly between 8-15 seconds
-            function scheduleNextDeath() {
-                const randomDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
-                setTimeout(() => {
-                    exhibitionDeaths++;
-                    document.getElementById('num5').textContent = exhibitionDeaths + ' 💀';
-                    
-                    // Update live counter bar gradually
-                    const bar5 = document.getElementById('bar5');
-                    const currentWidth = Math.min((exhibitionDeaths / 50) * 100, 100);
-                    bar5.style.width = currentWidth + '%';
-                    
-                    scheduleNextDeath();
-                }, randomDelay);
-            }
-            
-            // Start the death counter after initial animation
-            setTimeout(() => {
-                scheduleNextDeath();
-            }, 2000);
-        });
-
-        // ===== FULLSCREEN DOCUMENTARY =====
-        const docBtn = document.getElementById('docBtn');
-        const overlay = document.getElementById('overlay');
-        const docVideo = document.getElementById('docVideo');
-
-        docBtn.addEventListener('click', () => {
-            overlay.classList.add('active');
-            docVideo.play();
-        });
-
-        // Close on overlay click
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
-                docVideo.pause();
-                docVideo.currentTime = 0;
-            }
-        });
-        
-        // ===== SMOOTH SCROLL ANIMATIONS =====
-        const animatedSections = document.querySelectorAll('.section');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationDelay = `${index * 0.2}s`;
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        animatedSections.forEach(section => sectionObserver.observe(section));
-        
-        // ===== BLOOD SPLATTER SYSTEM =====
-        function createBloodSplatter() {
-            const splatter = document.createElement('div');
-            splatter.className = 'blood-splatter';
-            splatter.textContent = '🩸';
-            
-            // Random position on the sides (left or right 15% of screen)
-            const side = Math.random() < 0.5 ? 'left' : 'right';
-            let x;
-            
-            if (side === 'left') {
-                // Left side: 0% to 15% of screen width
-                x = Math.random() * (window.innerWidth * 0.15);
-            } else {
-                // Right side: 85% to 100% of screen width
-                x = window.innerWidth * 0.85 + Math.random() * (window.innerWidth * 0.15);
-            }
-            
-            // Start from top with small random variation
-            const y = -50 + Math.random() * 100;
-            
-            // Random rotation: between -15 and +15 degrees for discrete movement
-            const startRotation = (Math.random() * 30) - 15;
-            const rotationDiff = (Math.random() * 10) - 5; // Small additional rotation during fall
-            
-            splatter.style.left = x + 'px';
-            splatter.style.top = y + 'px';
-            splatter.style.setProperty('--start-rotation', startRotation + 'deg');
-            splatter.style.setProperty('--rotation-diff', rotationDiff + 'deg');
-            
-            document.body.appendChild(splatter);
-            
-            // Remove after animation (6 seconds)
-            setTimeout(() => {
-                splatter.remove();
-            }, 6000);
-        }
-        
-        // Create blood splatters every 5-12 seconds
-        function scheduleBloodSplatter() {
-            const delay = Math.random() * (12000 - 5000) + 5000;
-            setTimeout(() => {
-                createBloodSplatter();
-                scheduleBloodSplatter();
-            }, delay);
-        }
-        
-        // Start blood splatter system after page load
-        setTimeout(() => {
-            scheduleBloodSplatter();
-        }, 3000);
-    </script>
-</body>
-</html>
